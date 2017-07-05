@@ -4,7 +4,7 @@
 	$control-height:46px;
 	display:flex;
 	flex-direction: column;
-	min-height:100%;
+	height:100%;
 	padding: $chart-gap;
 
 	&-description {
@@ -14,27 +14,27 @@
 
 	&-frame {
 		flex: auto;
-		display: flex;
+		display: grid;
+	    grid-template-columns: auto 1fr;
+	    grid-template-rows: 1fr auto;
+	    grid-gap: 10px;
+	    grid-template-areas:
+			'left-control area'
+			'switcher bottom-control';
 	}
 
 	&-heads {
-		text-align:center;
+		display:inline-block;
 		padding: 5px 0 0 5px;
-		overflow:hidden;
-		white-space:nowrap;
 
 		&-item {
 			background: $primary-color;
 			padding: 2px 5px;
+			display: inline-block;
 			margin: 0 5px 5px 0;
 			border-radius: 1px;
 			min-height:24px;
-			display:inline-block;
 
-			>* {
-				display:inline-block;
-				vertical-align:middle;
-			}
 		}
 
 		&-ico {
@@ -56,28 +56,20 @@
 				padding: 5px 0 0;
     		}
 		}
-	}
 
-	&-holder {
-		display:flex;
-		flex-direction:column;
-		margin-right: $chart-gap/2;
-		flex: none;
-		overflow: hidden;
-
-		&:not(:first-child) {
-			flex:auto;
-			margin-right: 0;
+		span {
+			display:inline-block;
+			vertical-align:middle;
 		}
 	}
 
 	&-control {
-		padding: 5px 50px;
+		padding: 5px ($chart-gap + $add-size);
 		position:relative;
-		height: $control-height;
+		min-height: $control-height;
 		border:1px dashed $primary-color;
-		flex:none;
-		overflow:hidden;
+		grid-area: bottom-control;
+		text-align:center;
 
 		&-add {
 			position:absolute;
@@ -91,9 +83,7 @@
 			display:flex;
 			align-items:center;
 			justify-content:center;
-
 			color: #797979;
-
 			background: rgb(254,254,254); 
             background: linear-gradient(to bottom, rgba(254,254,254,1) 0%,rgba(233,233,233,1) 100%); 
 		}
@@ -101,9 +91,8 @@
 		&.left-control {
 			transform: rotate(180deg);
 			writing-mode: tb-rl;
-			padding: 50px 5px;
-			flex:auto;
-			width: $control-height;
+			padding: ($chart-gap + $add-size) 5px;
+			grid-area: left-control;
 
 			.chart-editor-control-add {
 				top: auto;
@@ -123,11 +112,11 @@
 	
 
 	&-switcher {
-		margin-top: $chart-gap/2;
-		min-height: $control-height;
 		display:flex;
 		align-items: center;
     	justify-content: center;
+
+    	grid-area: switcher;
 
     	svg path{
     		fill:#8ac158;
@@ -135,8 +124,7 @@
 	}
 
 	&-area {
+		grid-area: area;
 		background: #cfcfcf;
-		flex:auto;
-		margin: 0 0 $chart-gap/2;
 	}
  }
